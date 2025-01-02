@@ -33,7 +33,7 @@
         <div class="blog-container">
             <div class="project-item">
                 <div class="project-image">
-                    <img src="./images/mtsploit-logo.png" alt="Metasploit Logo" />
+                    <img src="images/mtsploit-logo.png" alt="Metasploit Logo" />
                 </div>
                 <div class="project-content">
                     <h3><a href="#post1">Metasploitable 2: SSH Güvenlik Testi ↗</a></h3>
@@ -71,7 +71,7 @@
                     
                     <p>Bu bilgilerle sisteme giriş yaptıktan sonra, hedef sistemin ağ bilgilerini öğrenmek için terminal üzerinde <code>ipconfig</code> komutunu çalıştırdık:</p>
                     
-                    <img src="images/msf-2.jpg" alt="IP Konfigürasyonu" class="post-image">
+                    <img src="images/msf-2.JPG" alt="IP Konfigürasyonu" class="post-image">
                     
                     <p>Komut çıktısından gördüğümüz üzere, Metasploitable 2 sistemimiz 192.168.61.134 IP adresini almış durumda. Bu IP adresi, güvenlik testlerimiz sırasında hedef sistemimize erişmek için kullanacağımız adres olacak.</p>
 
@@ -90,7 +90,7 @@
 
                     <p>Bu parametreler dışında Nmap'in çok daha fazla özelliği bulunmaktadır. Terminal üzerinde <code>nmap --help</code> komutunu çalıştırarak tüm parametrelere ve detaylı açıklamalarına ulaşabilirsiniz.</p>
                     
-                    <img src="images/msf-4.jpg" alt="Nmap Tarama Sonuçları" class="post-image">
+                    <img src="images/msf-4.JPG" alt="Nmap Tarama Sonuçları" class="post-image">
                     
                     <p>Tarama sonucunda SSH servisi hakkında önemli bilgilere ulaştık:</p>
                     <ul>
@@ -108,7 +108,7 @@
                     <p>Örneğin normal şartlarda şu komut yeterli olurdu:</p>
                     <code>ssh msfadmin@192.168.61.134</code>
 
-                    <img src="images/msf-5.jpg" alt="SSH Bağlantısı" class="post-image">
+                    <img src="images/msf-5.JPG" alt="SSH Bağlantısı" class="post-image">
                     
                     <p>Ancak SSH bağlantı denemesi sırasında modern SSH istemcilerinin güvenlik nedeniyle eski algoritmaları reddettiğini gördük. Bu nedenle bağlantı için özel parametreler kullanmamız gerekti:</p>
                     <code>ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa msfadmin@192.168.61.134</code>

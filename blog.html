@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Okan Soylu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="side-menu">
+        <div class="side-title">
+            <h1><span>Blog</span></h1>
+            <div>
+                <p>Siber güvenlik ve teknoloji üzerine yazılarım</p>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <li class="active"><a href="#security">Siber Güvenlik</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-links">
+            <a href="index.html" aria-label="Ana Sayfa">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </a>
+        </div>
+    </div>
+
+    <main>
+        <div class="blog-container">
+            <div class="project-item">
+                <div class="project-image">
+                    <img src="./images/mtsploit-logo.png" alt="Metasploit Logo" />
+                </div>
+                <div class="project-content">
+                    <h3><a href="#post1">Metasploitable 2: SSH Güvenlik Testi ↗</a></h3>
+                    <p>BTK-USOM stajım sırasında Metasploitable 2 üzerinde gerçekleştirdiğim SSH güvenlik testini adım adım anlatıyorum. Varsayılan kurulumdan başlayarak, zafiyet tespiti ve güvenlik önerilerine kadar detaylı bir analiz bulabilirsiniz.</p>
+                    <div class="tech-stack">
+                        <span>SSH</span>
+                        <span>OpenSSH</span>
+                        <span>Nmap</span>
+                        <span>Linux</span>
+                        <span>Güvenlik Testi</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tam blog yazısı -->
+            <article id="post1" class="blog-post" style="display: none;">
+                <div class="post-header">
+                    <h2>Metasploitable 2: SSH Güvenlik Testi</h2>
+                    <div class="post-meta">
+                        <span class="post-date">15 Mart 2024</span>
+                        <span class="post-category">Siber Güvenlik</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Bu yazıda, BTK-USOM stajım sırasında gerçekleştirdiğim güvenlik testlerinden birini detaylı olarak anlatacağım. Metasploitable 2, güvenlik uzmanları ve öğrenciler için özel olarak hazırlanmış, kasıtlı olarak güvenlik açıkları barındıran bir Linux dağıtımıdır. Bu sanal makine, güvenlik testlerini güvenli bir ortamda pratik yapabilmek için tasarlanmıştır ve içerisinde SSH, FTP, HTTP gibi birçok zafiyetli servis bulunmaktadır.</p>
+
+                    <p>BTK-USOM stajım sırasında Metasploitable 2 üzerinde gerçekleştirdiğim güvenlik testlerinden SSH servisine odaklanarak, bir güvenlik testinin nasıl yapıldığını adım adım anlatacağım. SSH, sistemlere uzaktan güvenli erişim sağlayan önemli bir servis olduğu için, güvenlik yapılandırması kritik önem taşır.</p>
+
+                    <h3>1. Hedef Sistem Bilgisi</h3>
+                    <p>İlk olarak Metasploitable 2 sanal makinesini WMvare üzerinde başlattık. Açılış ekranında bizi varsayılan giriş bilgileri karşıladı:</p>
+                    <ul>
+                        <li>Kullanıcı adı: msfadmin</li>
+                        <li>Parola: msfadmin</li>
+                    </ul>
+                    
+                    <p>Bu bilgilerle sisteme giriş yaptıktan sonra, hedef sistemin ağ bilgilerini öğrenmek için terminal üzerinde <code>ipconfig</code> komutunu çalıştırdık:</p>
+                    
+                    <img src="images/msf-2.jpg" alt="IP Konfigürasyonu" class="post-image">
+                    
+                    <p>Komut çıktısından gördüğümüz üzere, Metasploitable 2 sistemimiz 192.168.61.134 IP adresini almış durumda. Bu IP adresi, güvenlik testlerimiz sırasında hedef sistemimize erişmek için kullanacağımız adres olacak.</p>
+
+                    <h3>2. SSH Servis Analizi</h3>
+                    <p>Hedef sistemdeki SSH servisini analiz etmek için Nmap aracını kullandık. Nmap (Network Mapper), ağ keşfi ve güvenlik denetimi için kullanılan açık kaynaklı bir araçtır. Bu araç sayesinde hedef sistemdeki açık portları, çalışan servisleri ve bu servislerin versiyonlarını tespit edebiliriz.</p>
+                    
+                    <p>Aşağıdaki Nmap komutunu kullanarak hedef sistemdeki SSH servisinin detaylı analizini gerçekleştirdik:</p>
+                    <code>nmap -sV -sS -O  192.168.61.134</code>
+                    
+                    <p>Kullandığımız Nmap parametrelerinin işlevleri:</p>
+                    <ul>
+                        <li><code>-sV</code>: Çalışan servislerin versiyon bilgilerini tespit eder</li>
+                        <li><code>-sS</code>: TCP SYN taraması yapar, yarı-açık tarama olarak da bilinir</li>
+                        <li><code>-O</code>: İşletim sistemi tespiti yapar</li>
+                    </ul>
+
+                    <p>Bu parametreler dışında Nmap'in çok daha fazla özelliği bulunmaktadır. Terminal üzerinde <code>nmap --help</code> komutunu çalıştırarak tüm parametrelere ve detaylı açıklamalarına ulaşabilirsiniz.</p>
+                    
+                    <img src="images/msf-4.jpg" alt="Nmap Tarama Sonuçları" class="post-image">
+                    
+                    <p>Tarama sonucunda SSH servisi hakkında önemli bilgilere ulaştık:</p>
+                    <ul>
+                        <li>Port: 22/tcp (açık)</li>
+                        <li>Servis: OpenSSH 4.7p1</li>
+                        <li>Platform: Debian 8ubuntu1</li>
+                    </ul>
+                    
+                    <p>Bu bilgiler, SSH servisinin eski bir sürüm kullandığını ve potansiyel güvenlik açıklarına sahip olabileceğini gösteriyor.</p>
+
+                    <h3>3. Bağlantı Testi</h3>
+                    <p>SSH (Secure Shell) bağlantısı yapmak için temel syntax şu şekildedir:</p>
+                    <code>ssh [kullanıcı_adı]@[hedef_ip_adresi]</code>
+                    
+                    <p>Örneğin normal şartlarda şu komut yeterli olurdu:</p>
+                    <code>ssh msfadmin@192.168.61.134</code>
+
+                    <img src="images/msf-5.jpg" alt="SSH Bağlantısı" class="post-image">
+                    
+                    <p>Ancak SSH bağlantı denemesi sırasında modern SSH istemcilerinin güvenlik nedeniyle eski algoritmaları reddettiğini gördük. Bu nedenle bağlantı için özel parametreler kullanmamız gerekti:</p>
+                    <code>ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa msfadmin@192.168.61.134</code>
+                    
+                    <p>Burada kullandığımız ek parametreler, eski RSA algoritmasını kabul etmemizi sağlıyor. Bu durum bile sistemin ne kadar eski ve güvensiz olduğunu gösteriyor.</p>
+
+                    <h3>Tespit Edilen Güvenlik Zafiyetleri</h3>
+                    <ul>
+                        <li>OpenSSH 4.7p1 sürümü çok eski ve bilinen güvenlik açıkları mevcut</li>
+                        <li>Eski ve güvensiz SSH algoritmaları kullanılıyor</li>
+                        <li>SSH servisi varsayılan portta (22) çalışıyor</li>
+                        <li>Basit ve tahmin edilebilir kullanıcı adı/şifre kullanılmış</li>
+                    </ul>
+
+                    <h3>Güvenlik Önerileri</h3>
+                    <ul>
+                        <li>SSH sürümünün güncel bir versiyona yükseltilmesi</li>
+                        <li>Güvenli SSH algoritmalarının kullanılması</li>
+                        <li>SSH portunun değiştirilmesi</li>
+                        <li>Güçlü parola politikalarının uygulanması</li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <div class="white-line">© 2024 <span>OKAN S.</span></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Blog yazısı görüntüleme
+            document.querySelector('.project-content h3 a').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.project-item').style.display = 'none';
+                document.querySelector('#post1').style.display = 'block';
+            });
+
+            // Ana sayfaya dönüş için sosyal medya ikonlarındaki ev ikonuna tıklama
+            document.querySelector('.social-links a').addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html> 
